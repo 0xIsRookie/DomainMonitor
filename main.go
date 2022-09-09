@@ -107,7 +107,7 @@ func main() {
 	}
 	defer fi.Close()
 
-	fmt.Printf("|%20s%20s|%6s%2s|%6s%1s|%5s%1s|%6s%2s|%6s%4s|%6s%4s|%6s%4s|%6s%4s|%6s%2s|%6s%2s|%6s%2s|\n",
+	fmt.Printf("|%20s%20s|%6s%2s|%6s%1s|%5s%1s|%6s%2s|%6s%4s|%6s%4s|%8s%2s|%8s%2s|%6s%2s|%6s%2s|%6s%2s|%6s%2s|\n",
 		"Url", "",
 		"长城", "",
 		"移动墙", "",
@@ -119,7 +119,8 @@ func main() {
 		"VIVO", "",
 		"夸克", "",
 		"搜狗", "",
-		"华为", "")
+		"华为", "",
+		"小米", "")
 
 	br := bufio.NewReader(fi)
 	for {
@@ -184,6 +185,10 @@ func main() {
 		huawei := API{Type: "huawei", ApiPost: apiPost, result: &ApiResult{}}
 		huawei.Check()
 		huawei.FormatOutput()
+
+		mi := API{Type: "mi", ApiPost: apiPost, result: &ApiResult{}}
+		mi.Check()
+		mi.FormatOutput()
 
 		fmt.Println("")
 	}
