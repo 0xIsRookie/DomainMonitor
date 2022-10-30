@@ -37,7 +37,7 @@ type ApiResult struct {
 	Url      string `json:"url"`      // 检测的地址！
 }
 
-//ApiMonitorInterface 请求接口
+// ApiMonitorInterface 请求接口
 type ApiMonitorInterface interface {
 	Check()
 	FormatOutput()
@@ -83,7 +83,7 @@ func (r API) FormatOutput() {
 }
 
 func main() {
-	fmt.Printf("|%70s%79s|\n", "R00kieT00ls 全自动浏览器异常排查工具", "Version 1.0")
+	fmt.Printf("|%90s%92s|\n", "R00kieT00ls 全自动浏览器异常排查工具", "Version 1.2")
 
 	cfg, err := ini.Load("./config.ini")
 	if err != nil {
@@ -107,7 +107,7 @@ func main() {
 	}
 	defer fi.Close()
 
-	fmt.Printf("|%20s%20s|%6s%2s|%6s%1s|%5s%1s|%6s%2s|%6s%4s|%6s%4s|%8s%2s|%8s%2s|%6s%2s|%6s%2s|%6s%2s|%6s%2s|\n",
+	fmt.Printf("|%20s%20s|%6s%2s|%6s%1s|%5s%1s|%6s%2s|%6s%4s|%6s%4s|%8s%2s|%8s%2s|%6s%2s|%6s%2s|%6s%2s|%6s%2s|%6s%0s|%7s%3s|\n",
 		"Url", "",
 		"长城", "",
 		"移动墙", "",
@@ -120,7 +120,9 @@ func main() {
 		"夸克", "",
 		"搜狗", "",
 		"华为", "",
-		"小米", "")
+		"小米", "",
+		"净网云剑", "",
+		"DNS ", "")
 
 	br := bufio.NewReader(fi)
 	for {
@@ -189,6 +191,14 @@ func main() {
 		mi := API{Type: "mi", ApiPost: apiPost, result: &ApiResult{}}
 		mi.Check()
 		mi.FormatOutput()
+
+		jwyj := API{Type: "jwyj", ApiPost: apiPost, result: &ApiResult{}}
+		jwyj.Check()
+		jwyj.FormatOutput()
+
+		dns := API{Type: "dns", ApiPost: apiPost, result: &ApiResult{}}
+		dns.Check()
+		dns.FormatOutput()
 
 		fmt.Println("")
 	}
